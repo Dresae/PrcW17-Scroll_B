@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Map Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Tree Map Generator</h1>
+    <div id="tree">
+        <div class="node" id="root">
+            <span class="toggle-button" onclick="toggleChildren(this)">▼</span>
+            <input type="text" value="Root" onchange="updateNodeTitle(this)">
+            <div class="button-container">
+                <button onclick="addChild('first', this)">Add First Level Child</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="export">
+        <button onclick="exportTree('markdown')">Export as Markdown</button>
+        <button onclick="exportTree('html')">Export as HTML</button>
+    </div>
+
+<script src="z.js"></script>
+
+</body>
+</html>
