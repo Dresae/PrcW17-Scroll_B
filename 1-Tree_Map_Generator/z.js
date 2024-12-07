@@ -82,3 +82,26 @@ function drawLine(parent, child) {
     line.style.left = `${left}px`;
     document.getElementById('tree').appendChild(line);
 }
+
+function deleteNode(node) {
+    // Remove the node and its connecting line
+    node.remove();
+    // Optionally, remove the line connecting to the parent (you can implement this)
+}
+
+function updateNodeTitle(input) {
+    console.log(`Node title updated to: ${input.value}`);
+}
+
+function toggleChildren(toggleButton) {
+    const node = toggleButton.closest('.node');
+    const childrenContainer = node.querySelector('.children-container');
+    
+    if (childrenContainer) {
+        const isHidden = childrenContainer.classList.contains('hidden');
+        childrenContainer.classList.toggle('hidden', !isHidden); // Toggle hide/show children
+
+        // Update toggle button text
+        toggleButton.innerText = isHidden ? '▼' : '►'; // Down for expanded, right for collapsed
+    }
+}
