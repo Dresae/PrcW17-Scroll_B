@@ -43,3 +43,42 @@ function addChild(level, button) {
     // Draw line connecting to parent
     drawLine(parentNode, node);
 }
+
+
+function getOrCreateChildrenContainer(parentNode) {
+    let childrenContainer = parentNode.querySelector('.children-container');
+    if (!childrenContainer) {
+        childrenContainer = document.createElement('div');
+        childrenContainer.className = 'children-container';
+        parentNode.appendChild(childrenContainer);
+    }
+    return childrenContainer;
+}
+
+function getBackgroundColor(level) {
+    switch (level) {
+        case 'first': return '#291358'; // Dark 
+        case 'second': return '#34495e'; // Medium
+        case 'third': return '#85929e';  // Light
+        case 'fourth': return '#aab7b8'; // Very Light
+        default: return '#4e4376';
+    }
+}
+
+function drawLine(parent, child) {
+    const line = document.createElement('div');
+    line.className = 'line';
+    
+    const parentRect = parent.getBoundingClientRect();
+    const childRect = child.getBoundingClientRect();
+
+    const top = parentRect.bottom;
+    const left = parentRect.left + parentRect.width / 2;
+
+    const height = childRect.top - parentRect.bottom - 10; // 10px margin
+
+    line.style.height = `${height}px`;
+    line.style.top = `${top}px`;
+    line.style.left = `${left}px`;
+    document.getElementById('tree').appendChild(line);
+}
