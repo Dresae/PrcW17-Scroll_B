@@ -105,3 +105,54 @@ function toggleChildren(toggleButton) {
         toggleButton.innerText = isHidden ? '▼' : '►'; // Down for expanded, right for collapsed
     }
 }
+
+function exportTree(format) {
+    const tree = document.getElementById('tree');
+    let content = '';
+
+    if (format === 'markdown') {
+        content += `# Tree Structure\n\n`;
+        content += exportMarkdown(tree, 0);
+    } else {
+        content += `<h1>Tree Structure</h1>`;
+        content += exportHTML(tree, 0);
+    }
+
+    const blob = new Blob([content], { type: format === 'markdown' ? 'text/plain' : 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `tree_structure.${format}`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function exportMarkdown(node, level) {
+    let markdown = '';
+    const children = Array.from(node.children).filter(child => child.className === 'node');
+
+    children.forEach((child, index) => {
+        const input = child.querySelector('input');
+        const prefix = (index === children.length - 1) ? '└── ' : '├── '; // Last child indicator
+        markdown += `${'│   '.repeat(level)}${prefix}${input.value}\n`;
+        markdown += exportMarkdown(child, level + 1);
+    });
+
+    return markdown;
+}
+
+function exportHTML(node, level) {
+    let html = `<ul>\n`;
+    const children = Array.from(node.children).filter(child => child.className === 'node');
+
+    children.forEach(child => {
+        const input = child.querySelector('input');
+        html += `<li>${input.value}</li>\n`;
+        html += exportHTML(child, level + 1);
+    });
+
+    html += `</ul>\n`;
+    return html;
+}
