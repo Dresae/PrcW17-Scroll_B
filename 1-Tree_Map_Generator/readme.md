@@ -7,3 +7,6 @@ Generate a DOM-like tree map for your html code structure
 ![screenshot](pics/screengif2.gif)
 
 ***
+***
+
+![screenshot](pics/slowking.gif "...Then teach and guide yourself")
