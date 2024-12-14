@@ -12,4 +12,4 @@ Sample
 ***
 ***
 
-![screenshot](pics/slowking.gif "...Then teach and guide yourself")
+![screenshot](misc/slowking.gif "...Then teach and guide yourself")

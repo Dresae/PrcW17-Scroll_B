@@ -9,4 +9,4 @@ Generate a DOM-like tree map for your html code structure
 ***
 ***
 
-![screenshot](pics/slowking.gif "...Then teach and guide yourself")
+![screenshot][Parent File](../misc/slowking.gif "...Then teach and guide yourself")
