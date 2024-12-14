@@ -10,3 +10,6 @@ Generate a DOM-like tree map for your html code structure
 Sample
 
 ***
+***
+
+![screenshot](pics/slowking.gif "...Then teach and guide yourself")
