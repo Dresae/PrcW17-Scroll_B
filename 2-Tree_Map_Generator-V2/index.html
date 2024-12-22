@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Map Generator V2</title>
+</head>
+<body>
+    <div class="export-buttons">
+        <button onclick="exportTree('markdown')">Export as Markdown</button>
+        <button onclick="exportTree('html')">Export as HTML</button>
+    </div>
+    <div id="tree">
+        <div class="node" id="root" style="background-color: #4e4376;">
+            <input type="text" value="Root Node">
+            <div class="button-container">
+                <button onclick="addChild('first', this)">Add First Level Child</button>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
