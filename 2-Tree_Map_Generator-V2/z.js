@@ -78,3 +78,35 @@ function drawLine(parent, child) {
     line.style.left = `${left}px`;
     document.getElementById('tree').appendChild(line);
 }
+
+function deleteNode(node) {
+    node.remove();
+}
+
+function updateNodeTitle(input) {
+    console.log(`Node title updated to: ${input.value}`);
+}
+
+function toggleChildren(toggleButton) {
+    const node = toggleButton.closest('.node');
+    const childrenContainer = node.querySelector('.children-container');
+    
+    if (childrenContainer) {
+        const isHidden = childrenContainer.classList.contains('hidden');
+        childrenContainer.classList.toggle('hidden', !isHidden);
+        toggleButton.innerText = isHidden ? '▼' : '►';
+    }
+}
+
+function exportTree(format) {
+    const tree = document.getElementById('tree');
+    let content = '';
+
+    if (format === 'markdown') {
+        content = generateMarkdown(tree);
+    } else {
+        content = generateHTML(tree);
+    }
+
+    downloadFile(content, format);
+}
