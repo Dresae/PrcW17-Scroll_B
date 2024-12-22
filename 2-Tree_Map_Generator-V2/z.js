@@ -110,3 +110,36 @@ function exportTree(format) {
 
     downloadFile(content, format);
 }
+
+function generateMarkdown(tree) {
+    let markdown = '# Tree Structure\n\n';
+    const rootNodes = Array.from(tree.children).filter(child => 
+        child.className === 'node' && (!child.previousElementSibling || !child.previousElementSibling.classList.contains('node'))
+    );
+    
+    rootNodes.forEach((node, index) => {
+        markdown += processNodeMarkdown(node, '', index === rootNodes.length - 1);
+    });
+    
+    return markdown;
+}
+
+function processNodeMarkdown(node, prefix, isLast) {
+    let markdown = '';
+    const nodeTitle = node.querySelector('input').value;
+    const marker = isLast ? '└── ' : '├── ';
+    
+    markdown += `${prefix}${marker}${nodeTitle}\n`;
+    
+    const childrenContainer = node.querySelector('.children-container');
+    if (childrenContainer) {
+        const children = Array.from(childrenContainer.children).filter(child => child.classList.contains('node'));
+        const newPrefix = prefix + (isLast ? '    ' : '│   ');
+        
+        children.forEach((child, index) => {
+            markdown += processNodeMarkdown(child, newPrefix, index === children.length - 1);
+        });
+    }
+    
+    return markdown;
+}
