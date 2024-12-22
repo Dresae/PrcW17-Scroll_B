@@ -143,3 +143,61 @@ function processNodeMarkdown(node, prefix, isLast) {
     
     return markdown;
 }
+
+function generateHTML(tree) {
+    let html = '<html><head><title>Tree Structure</title></head><body>\n';
+    html += '<h1>Tree Structure</h1>\n';
+    html += processNodeHTML(tree);
+    html += '</body></html>';
+    return html;
+}
+
+function processNodeHTML(node) {
+    let html = '<ul>\n';
+    const children = Array.from(node.children).filter(child => child.classList.contains('node'));
+    
+    children.forEach(child => {
+        const nodeTitle = child.querySelector('input').value;
+        html += `<li>${nodeTitle}`;
+        
+        const childrenContainer = child.querySelector('.children-container');
+        if (childrenContainer && childrenContainer.children.length > 0) {
+            html += processNodeHTML(childrenContainer);
+        }
+        
+        html += '</li>\n';
+    });
+    
+    html += '</ul>\n';
+    return html;
+}
+
+function downloadFile(content, format) {
+    const blob = new Blob([content], { 
+        type: format === 'markdown' ? 'text/plain' : 'text/html' 
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `tree_structure.${format === 'markdown' ? 'md' : 'html'}`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function isNodeVisible(node) {
+    return !node.closest('.children-container.hidden');
+}
+
+function getNodeLevel(node) {
+    let level = 0;
+    let parent = node.parentElement;
+    while (parent && !parent.id.includes('tree')) {
+        if (parent.classList.contains('children-container')) {
+            level++;
+        }
+        parent = parent.parentElement;
+    }
+    return level;
+}
